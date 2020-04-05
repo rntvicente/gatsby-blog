@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 
 import Sidebar from '../Sidebar';
 import GlobalStyles from '../../styles/global';
+import Menubar from '../Menubar';
+
 import * as Styled from './styled';
 
 const Layout = ({ children }) => (
@@ -10,6 +12,7 @@ const Layout = ({ children }) => (
     <GlobalStyles />
     <Sidebar />
     <Styled.LayoutMain>{children}</Styled.LayoutMain>
+    <Menubar />
   </Styled.LayoutWrapper>
 );
 
