@@ -1,16 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Profile from '../Profile';
+import Sidebar from '../Sidebar';
 import GlobalStyles from '../../styles/global';
 import * as Styled from './styled';
 
 const Layout = ({ children }) => (
   <Styled.LayoutWrapper>
     <GlobalStyles />
-    <aside>
-      <Profile />
-    </aside>
+    <Sidebar />
     <Styled.LayoutMain>{children}</Styled.LayoutMain>
   </Styled.LayoutWrapper>
 );

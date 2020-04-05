@@ -1,9 +1,10 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
 import PropTypes from "prop-types";
 
-const Avatar = ({ width, alt }) => {
+import * as Styled from './styled';
+
+const Avatar = ({ alt }) => {
   const data = useStaticQuery(graphql`
     query {
       file(relativePath: { eq: "avatar-batata.jpg" }) {
@@ -17,16 +18,11 @@ const Avatar = ({ width, alt }) => {
   `);
 
   return (
-    <Img
-      style={{ width }}
-      fluid={data.file.childImageSharp.fluid}
-      alt={alt}
-    />
+    <Styled.AvatarWrapper fluid={data.file.childImageSharp.fluid} alt={alt} />
   );
 };
 
 Avatar.propTypes = {
-  width: PropTypes.number.isRequired,
   alt: PropTypes.string.isRequired
 };
 
