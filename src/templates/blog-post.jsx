@@ -3,11 +3,13 @@ import { graphql } from 'gatsby';
 
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
+import RecommendedPosts from '../components/RecommendedPosts';
 
 import * as Styled from '../components/Post/styled';
 
-const BlogPost = ({ data }) => {
+const BlogPost = ({ data, pageContext }) => {
   const { frontmatter, html } = data.markdownRemark;
+  const { previousPost, nextPost } = pageContext;
 
   return (
     <Layout>
@@ -21,6 +23,7 @@ const BlogPost = ({ data }) => {
       <Styled.MainContent>
         <div dangerouslySetInnerHTML={{ __html: html }}></div>
       </Styled.MainContent>
+      <RecommendedPosts next={nextPost} previous={previousPost} />
     </Layout>
   );
 };

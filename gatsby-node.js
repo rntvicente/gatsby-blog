@@ -41,6 +41,22 @@ exports.createPages = ({ graphql, actions }) => {
               slug
             }
           }
+          next {
+            fields {
+              slug
+            }
+            frontmatter {
+              title
+            }
+          }
+          previous {
+            fields {
+              slug
+            }
+            frontmatter {
+              title
+            }
+          }          
         }
       }
     }`).then(result => {
@@ -51,12 +67,14 @@ exports.createPages = ({ graphql, actions }) => {
 
     const posts = result.data.allMarkdownRemark.edges;
 
-    posts.forEach(edge => {
+    posts.forEach(post => {
       createPage({
-        path: edge.node.fields.slug,
+        path: post.node.fields.slug,
         component: path.resolve('./src/templates/blog-post.jsx'),
         context: {
-          slug: edge.node.fields.slug
+          slug: post.node.fields.slug,
+          previousPost: post.next,
+          nextPost: post.previous,
         },
       });
     });
