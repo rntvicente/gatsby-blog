@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { graphql } from 'gatsby';
 
 import Layout from '../components/Layout';
@@ -70,4 +70,4 @@ export const query = () => graphql`
   }
 `;
 
-export default BlogPost;
+export default BlogList;

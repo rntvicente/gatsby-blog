@@ -26,7 +26,7 @@ exports.createPages = ({ graphql, actions }) => {
 
   return graphql(`
     {
-      allMarkdownRemark(sort: {fields: frontmatter___date, order: DESC}) {
+      allMarkdownRemark(sort: { fields: frontmatter___date, order: DESC }) {
         edges {
           node {
             frontmatter {
@@ -39,44 +39,44 @@ exports.createPages = ({ graphql, actions }) => {
             timeToRead
             fields {
               slug
-              // Path for this page — required
+            }
           }
         }
       }
     }`).then(result => {
 
-      if (result.errors) {
-        throw result.errors
-      }
+    if (result.errors) {
+      throw result.errors
+    }
 
-      const posts = result.data.allMarkdownRemark.edges;
+    const posts = result.data.allMarkdownRemark.edges;
 
-      posts.forEach(edge => {
-        createPage({
-          path: edge.node.fields.slug,
-          component: path.resolve('./src/templates/blog-post.jsx'),
-          context: {
-            slug: edge.node.fields.slug
-          },
-        });
+    posts.forEach(edge => {
+      createPage({
+        path: edge.node.fields.slug,
+        component: path.resolve('./src/templates/blog-post.jsx'),
+        context: {
+          slug: edge.node.fields.slug
+        },
       });
+    });
 
-      const postsPerPage = 6;
-      const numPages = Math.ceil(posts.length / postsPerPage);
+    const postsPerPage = 6;
+    const numPages = Math.ceil(posts.length / postsPerPage);
 
-      Array.from({ length: numPages }).forEach((_, index) => {
-        currentPage = index + 1;
+    Array.from({ length: numPages }).forEach((_, index) => {
+      currentPage = index + 1;
 
-        createPage({
-          path: index === 0 ? `/` : `/page/${currentPage}`,
-          component: path.resolve(`./src/templates/blog-list.jsx`),
-          context: {
-            limit: postsPerPage,
-            skip: index * postsPerPage,
-            numPages,
-            currentPage
-          }
-        });
+      createPage({
+        path: (index === 0) ? `/` : `/page/${currentPage}`,
+        component: path.resolve(`./src/templates/blog-list.jsx`),
+        context: {
+          limit: postsPerPage,
+          skip: index * postsPerPage,
+          numPages,
+          currentPage
+        }
       });
+    });
   });
 };
